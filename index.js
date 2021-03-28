@@ -9,6 +9,7 @@ app.use(express.json());
 const port = 8080;
 const postsPath = path.join(__dirname, 'posts');
 
+/* Route GET, recuperer une liste de tout les Posts disponibles */
 app.get('/posts', async (req, res) => {
     try {
         const directory = await fs.readdir(postsPath);
@@ -18,6 +19,7 @@ app.get('/posts', async (req, res) => {
     }
 });
 
+/* Route GET /:name, recuperer un post en particulier en se servant de son nom */
 app.get('/post/:name', async (req, res) => {
     const filePath = path.join(postsPath, req.params.name);
     try {
@@ -28,6 +30,7 @@ app.get('/post/:name', async (req, res) => {
     }
 });
 
+/* Route POST, creer un post */
 app.post('/post', async (req, res) => {
     try {
         const fileToCreate = path.join(postsPath, req.body.name);
@@ -38,6 +41,7 @@ app.post('/post', async (req, res) => {
     }
 });
 
+/* Route DELETE, supprimer un post */
 app.delete('/post/:name', async (req, res) => {
     const filePath = path.join(postsPath, req.params.name);
     try {
@@ -49,6 +53,7 @@ app.delete('/post/:name', async (req, res) => {
     }
 });
 
+/* Lancer le serveur HTTP */
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
